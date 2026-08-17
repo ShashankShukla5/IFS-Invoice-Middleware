@@ -1,0 +1,43 @@
+// Prisma schema — PostgreSQL persistence for e-invoice integration state.
+// IFS data is NEVER stored as source of truth here; only integration tracking.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum IntegrationStatus {
+  RECEIVED
+  PROCESSING
+  SUCCESS
+  FAILED
+  ALREADY_GENERATED
+}
+
+model InvoiceIntegration {
+  id                String            @id @default(uuid())
+  /// Unique business key: company|seriesId|invoiceNo
+  idempotencyKey    String            @unique
+  company           String
+  seriesId          String
+  invoiceNo         String
+  invoiceId         String?
+  documentIdentifier String?
+  status            IntegrationStatus @default(RECEIVED)
+  irn               String?
+  qrUrl             String?
+  correlationId     String?
+  lastError         String?
+  externalHttpStatus Int?
+  submittedAt       DateTime?
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+
+  @@index([company, seriesId, invoiceNo])
+  @@index([irn])
+  @@map("invoice_integrations")
+}

@@ -1,0 +1,45 @@
+{
+  "name": "ifs-einvoicing-middleware",
+  "version": "1.0.0",
+  "description": "IFS ERP → Nigerian E-Invoicing Platform middleware (Customer Invoice)",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "test": "jest --runInBand --forceExit",
+    "test:watch": "jest --watch",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate dev",
+    "prisma:deploy": "prisma migrate deploy"
+  },
+  "keywords": [
+    "ifs",
+    "e-invoicing",
+    "nigeria",
+    "nrs"
+  ],
+  "author": "",
+  "license": "UNLICENSED",
+  "type": "commonjs",
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@prisma/client": "6.19.0",
+    "axios": "1.19.0",
+    "cors": "2.8.6",
+    "dotenv": "17.4.2",
+    "express": "5.2.1",
+    "express-rate-limit": "8.6.2",
+    "helmet": "8.3.0",
+    "uuid": "11.1.1",
+    "winston": "3.19.0",
+    "zod": "4.4.3"
+  },
+  "devDependencies": {
+    "jest": "30.4.2",
+    "nodemon": "3.1.14",
+    "prisma": "6.19.0",
+    "supertest": "7.2.2"
+  }
+}
